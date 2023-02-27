@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
+const loginRouts = require('./routes/login');
+
 const app = express();
 app.set('port', 4000);
 
@@ -24,7 +26,7 @@ app.use(myconnection(mysql, {
     host: 'localhost',
     user:'root',
     password:'',
-    port:'3006',
+    port:'3306',
     database:'nodelogin'
 }));
 
@@ -38,7 +40,7 @@ app.listen(app.get('port'), () => {
     console.log('Listening on port ', app.get('port'));
 });
 
-
+app.use('/',loginRouts)
 
 app.get('/', (req, res) => {
     res.render('home');
